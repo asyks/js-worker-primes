@@ -1,8 +1,8 @@
-const worker = new Worker("worker.js");
+function workerFindPrimes() {
+  const worker = new Worker("worker.js");
 
-worker.postMessage("discover");
-console.log("main: message sent");
-worker.onmessage = (event) => {
-  console.log("main: message recieved");
-  document.getElementById("result").textContent = event.data;
-};
+  worker.postMessage("discover");
+  worker.onmessage = (event) => {
+    document.getElementById("result").textContent = event.data;
+  };
+}
