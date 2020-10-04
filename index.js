@@ -3,6 +3,10 @@ function workerFindPrimes() {
 
   worker.postMessage("discover");
   worker.onmessage = (event) => {
-    document.getElementById("result").textContent = event.data;
+    if (event.data.value === undefined) {
+      worker.terminate();
+    } else {
+      document.getElementById("result").textContent = event.data.value;
+    }
   };
 }

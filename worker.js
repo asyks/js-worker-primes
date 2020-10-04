@@ -8,8 +8,9 @@ onmessage = function (event) {
       if (prime.value === undefined) {
         break;
       } else {
-        postMessage(prime.value);
+        postMessage({ done: false, value: prime.value });
       }
     }
+    postMessage({ done: true, value: undefined });
   }
 };
