@@ -1,12 +1,15 @@
+self.importScripts("primes.js");
+
 onmessage = function (event) {
   if (event.data === "discover") {
-    var n = 1;
-    var end_value = 10 ** 7;
-    search: while (n <= end_value) {
-      n++;
-      for (var i = 2; i <= Math.sqrt(n); i++) if (n % i == 0) continue search;
-      // found a prime!
-      postMessage(n);
+    const generator = primes();
+    while (true) {
+      prime = generator.next();
+      if (prime.value === undefined) {
+        break;
+      } else {
+        postMessage(prime.value);
+      }
     }
   }
 };
