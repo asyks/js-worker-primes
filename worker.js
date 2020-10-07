@@ -1,11 +1,15 @@
-importScripts("primes.js");
+self.importScripts("primes.js");
 
 onmessage = function (event) {
   if (event.data === "discover") {
     const generator = primes();
-    for (prime of generator) {
-      postMessage({ done: false, value: prime.value });
+    while (true) {
+      prime = generator.next();
+      if (prime.done) {
+        break;
+      } else {
+        postMessage(prime.value);
+      }
     }
-    postMessage({ done: true, value: undefined });
   }
 };
