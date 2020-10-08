@@ -1,10 +1,14 @@
-function workerFindPrimes() {
-  const worker = new Worker("worker.js");
+const numWorkers = 1;
 
-  worker.postMessage("discover");
-  worker.onmessage = (event) => {
-    document.getElementById("result").textContent = event.data;
-  };
+function workerFindPrimes() {
+  for (i = 1; i <= numWorkers; i++) {
+    const worker = new Worker("worker.js");
+
+    worker.postMessage("discover");
+    worker.onmessage = (event) => {
+      document.getElementById("result").textContent = event.data;
+    };
+  }
 }
 
 document
