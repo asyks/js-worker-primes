@@ -1,7 +1,6 @@
-function* primes() {
-  var n = 1;
-  var end_value = 10 ** 7;
-  search: while (n <= end_value) {
+function* primes({ start, end }) {
+  var n = start;
+  search: while (n <= end) {
     n++;
     for (var i = 2; i <= Math.sqrt(n); i++) {
       if (n % i == 0) {
