@@ -13,7 +13,7 @@ function createResultsNodes(numWorkers) {
   }
 }
 
-function workerFindPrimes(numWorkers) {
+function workersFindPrimes(numWorkers) {
   const chunkSize = Math.round(absoluteEndValue / numWorkers);
   let startValue = absoluteStartValue;
   let endValue = startValue + chunkSize;
@@ -31,7 +31,7 @@ function workerFindPrimes(numWorkers) {
 
 function handleClick() {
   createResultsNodes(totalWorkers);
-  workerFindPrimes(totalWorkers);
+  workersFindPrimes(totalWorkers);
 }
 
 document.getElementById("find-button").addEventListener("click", handleClick);
