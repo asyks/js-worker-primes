@@ -1,18 +1,25 @@
 import {
   absoluteStartValue,
   absoluteEndValue,
-  numWorkers,
+  totalWorkers,
 } from "./constants.js";
 
-function workerFindPrimes() {
-  const chunkSize = absoluteEndValue / numWorkers;
+function createResultsNodes(numWorkers) {
+  const results = document.getElementById(`results`);
+  for (let i = 1; i <= numWorkers; i++) {
+    const p = document.createElement("p");
+    p.setAttribute("id", `result-${i}`);
+    results.appendChild(p);
+  }
+}
+
+function workerFindPrimes(numWorkers) {
+  const chunkSize = Math.round(absoluteEndValue / numWorkers);
   let startValue = absoluteStartValue;
   let endValue = startValue + chunkSize;
   for (let i = 1; i <= numWorkers; i++) {
     const worker = new Worker("worker.js");
-    const data = { start: startValue, end: endValue };
-    console.log(data);
-    worker.postMessage(data);
+    worker.postMessage({ start: startValue, end: endValue });
     worker.onmessage = (event) => {
       document.getElementById(`result-${i}`).textContent = event.data;
     };
@@ -22,6 +29,9 @@ function workerFindPrimes() {
   }
 }
 
-document
-  .getElementById("find-button")
-  .addEventListener("click", workerFindPrimes);
+function handleClick() {
+  createResultsNodes(totalWorkers);
+  workerFindPrimes(totalWorkers);
+}
+
+document.getElementById("find-button").addEventListener("click", handleClick);
