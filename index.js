@@ -1,8 +1,4 @@
-import {
-  absoluteStartValue,
-  absoluteEndValue,
-  totalWorkers,
-} from "./constants.js";
+import { absoluteStartValue, absoluteEndValue} from "./constants.js";
 
 function createResultsNodes(numWorkers) {
   const results = document.getElementById(`results`);
@@ -30,8 +26,10 @@ function workersFindPrimes(numWorkers) {
 }
 
 function handleClick() {
-  createResultsNodes(totalWorkers);
-  workersFindPrimes(totalWorkers);
+  const select = document.getElementById("num-workers-select")
+  const numWorkers = Number(select.options[select.selectedIndex].value)
+  createResultsNodes(numWorkers);
+  workersFindPrimes(numWorkers);
 }
 
 document.getElementById("find-button").addEventListener("click", handleClick);
